@@ -3,7 +3,7 @@ package aratog.task;
 import aratog.task.command.Command;
 import aratog.task.command.DecCommand;
 import aratog.task.command.IncCommand;
-import aratog.task.request.CommandRequest;
+import aratog.task.request.CommandArgs;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 
@@ -22,8 +22,8 @@ public class ServerHandler extends IoHandlerAdapter {
 
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
-        CommandRequest commandRequest = (CommandRequest) message;
-        Command command = commandMap.get(commandRequest.getCommandCode());
-        command.execute(commandRequest);
+        CommandArgs commandArgs = (CommandArgs) message;
+        Command command = commandMap.get(commandArgs.getCommandCode());
+        command.execute(commandArgs);
     }
 }

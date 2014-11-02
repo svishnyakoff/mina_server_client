@@ -1,11 +1,9 @@
 package aratog.task.command;
 
-import aratog.task.request.CommandRequest;
+import aratog.task.request.CommandArgs;
 
-/**
- * Created by svishnyakov on 01.11.14.
- */
+
 public interface  Command {
 
-    public void execute(CommandRequest commandRequest);
+    public void execute(CommandArgs commandArgs);
 }

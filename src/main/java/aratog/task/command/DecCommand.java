@@ -1,14 +1,21 @@
 package aratog.task.command;
 
 
-import aratog.task.request.CommandRequest;
-import aratog.task.request.DecCommandRequest;
-import aratog.task.request.IncCommandRequest;
+import aratog.task.CounterHistory;
+import aratog.task.request.CommandArgs;
+import aratog.task.request.DecCommandArgs;
+import aratog.task.spring.CounterHistoryService;
+import aratog.task.spring.CounterService;
+import aratog.task.spring.SpringUtils;
 
-public class DecCommand implements Command{
-    @Override
-    public void execute(CommandRequest commandRequest) {
-        DecCommandRequest args = (DecCommandRequest) commandRequest;
-        System.out.println("decrement " + args.getCounterId() );
+public class DecCommand implements Command {
+    private CounterService counterService = SpringUtils.getInstance().get(CounterService.class);
+    private CounterHistoryService counterHistoryService = SpringUtils.getInstance().get(CounterHistoryService.class);
+
+    public void execute(CommandArgs commandArgs) {
+        DecCommandArgs decCommandArgs = (DecCommandArgs) commandArgs;
+        if (counterService.decrementCounter(decCommandArgs.getCounterId())) {
+            counterHistoryService.insert(new CounterHistory(decCommandArgs.getCounterId(), "increment"));
+        }
     }
 }

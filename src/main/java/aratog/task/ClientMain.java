@@ -1,7 +1,8 @@
 package aratog.task;
 
 
-import aratog.task.request.CommandRequest;
+import aratog.task.request.DecCommandArgs;
+import aratog.task.request.IncCommandArgs;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -23,9 +24,13 @@ public class ClientMain {
         IoSession session = connect.getSession();
         Random random = new Random();
         while (true) {
-            session.write(new CommandRequest((byte)0x01, random.nextInt(100)));
-            session.write(new CommandRequest((byte)0x02, random.nextInt(100)));
-            Thread.sleep(1000);
+            boolean inc = random.nextBoolean();
+            if (inc) {
+                session.write(new IncCommandArgs((byte)0x01, 1));
+            } else {
+                session.write(new DecCommandArgs((byte)0x02, 1));
+            }
+            Thread.sleep(100);
         }
 
     }

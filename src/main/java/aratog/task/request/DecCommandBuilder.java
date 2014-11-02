@@ -3,13 +3,13 @@ package aratog.task.request;
 
 import org.apache.mina.core.buffer.IoBuffer;
 
-public class DecCommandBuilder extends CommandBuilder<DecCommandRequest> {
+public class DecCommandBuilder extends CommandBuilder<DecCommandArgs> {
 
-    private final DecCommandRequest commandRequest;
+    private final DecCommandArgs commandRequest;
 
     public DecCommandBuilder(byte commandCode) {
         super(new int[]{4});
-        commandRequest = new DecCommandRequest(commandCode);
+        commandRequest = new DecCommandArgs(commandCode);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class DecCommandBuilder extends CommandBuilder<DecCommandRequest> {
         }
     }
 
-    public DecCommandRequest getCommand() {
+    public DecCommandArgs getCommand() {
         return commandRequest;
     }
 }
