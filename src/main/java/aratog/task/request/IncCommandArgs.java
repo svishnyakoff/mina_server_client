@@ -19,4 +19,11 @@ public class IncCommandArgs extends CommandArgs {
     void setCounterId(int counterId) {
         this.counterId = counterId;
     }
+
+    @Override
+    public String toString() {
+        return "IncCommandArgs{" +
+                "counterId=" + counterId +
+                '}';
+    }
 }

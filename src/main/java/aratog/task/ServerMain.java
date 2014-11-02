@@ -37,7 +37,7 @@ public class ServerMain {
 
     private static void initDB() {
         CounterService counterService = SpringUtils.getInstance().get(CounterService.class);
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 0; i < 100; i++) {
             if (!counterService.existsWithId(i)) {
                 counterService.save(new Counter(i, 0));
             }
