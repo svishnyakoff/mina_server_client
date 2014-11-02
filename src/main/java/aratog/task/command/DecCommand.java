@@ -15,7 +15,7 @@ public class DecCommand implements Command {
     public void execute(CommandArgs commandArgs) {
         DecCommandArgs decCommandArgs = (DecCommandArgs) commandArgs;
         if (counterService.decrementCounter(decCommandArgs.getCounterId())) {
-            counterHistoryService.insert(new CounterHistory(decCommandArgs.getCounterId(), "increment"));
+            counterHistoryService.insert(new CounterHistory(decCommandArgs.getCounterId(), "dec"));
         }
     }
 }

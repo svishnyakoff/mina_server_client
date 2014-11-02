@@ -16,7 +16,7 @@ public class IncCommand implements Command {
     public void execute(CommandArgs commandArgs) {
         IncCommandArgs incCommandArgs = (IncCommandArgs) commandArgs;
         if (counterService.incrementCounter(incCommandArgs.getCounterId())) {
-            counterHistoryService.insert(new CounterHistory(incCommandArgs.getCounterId(), "decrement"));
+            counterHistoryService.insert(new CounterHistory(incCommandArgs.getCounterId(), "inc"));
         }
     }
 
