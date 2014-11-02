@@ -1,4 +1,4 @@
-package aratog.task.request;
+package aratog.task.command.args;
 
 
 public class CommandArgs {

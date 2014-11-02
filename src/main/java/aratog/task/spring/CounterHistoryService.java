@@ -1,6 +1,6 @@
 package aratog.task.spring;
 
-import aratog.task.CounterHistory;
+import aratog.task.entity.CounterHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;

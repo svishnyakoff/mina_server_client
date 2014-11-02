@@ -1,9 +1,9 @@
 package aratog.task.command;
 
 
-import aratog.task.CounterHistory;
-import aratog.task.request.CommandArgs;
-import aratog.task.request.DecCommandArgs;
+import aratog.task.entity.CounterHistory;
+import aratog.task.command.args.CommandArgs;
+import aratog.task.command.args.DecCommandArgs;
 import aratog.task.spring.CounterHistoryService;
 import aratog.task.spring.CounterService;
 import aratog.task.spring.SpringUtils;

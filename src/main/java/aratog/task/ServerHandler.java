@@ -3,7 +3,7 @@ package aratog.task;
 import aratog.task.command.Command;
 import aratog.task.command.DecCommand;
 import aratog.task.command.IncCommand;
-import aratog.task.request.CommandArgs;
+import aratog.task.command.args.CommandArgs;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 

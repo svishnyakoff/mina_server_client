@@ -1,6 +1,5 @@
-package aratog.task;
+package aratog.task.decoder;
 
-import aratog.task.request.*;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
@@ -13,32 +12,31 @@ public class CommandDecoder extends CumulativeProtocolDecoder {
 
     @Override
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
-        CommandBuilder commandBuilder = (CommandBuilder)session.getAttribute(DECODER_STATE_KEY);
+        CommandArgsDecoder commandArgsDecoder = (CommandArgsDecoder)session.getAttribute(DECODER_STATE_KEY);
 
-        if (commandBuilder == null) {
+        if (commandArgsDecoder == null) {
             if (in.remaining() >= 1) {
                 byte commandCode = in.get();
-                commandBuilder = builder(commandCode);
-                session.setAttribute(DECODER_STATE_KEY, commandBuilder);
+                commandArgsDecoder = builder(commandCode);
+                session.setAttribute(DECODER_STATE_KEY, commandArgsDecoder);
             } else {
                 return false;
             }
         }
 
-        commandBuilder.build(in);
-        if (commandBuilder.buildCompleted()) {
+        if (commandArgsDecoder.build(in)) {
             session.removeAttribute(DECODER_STATE_KEY);
-            out.write(commandBuilder.getCommand());
+            out.write(commandArgsDecoder.getCommand());
             return true;
         } else {
             return false;
         }
     }
 
-    private CommandBuilder builder(byte commandCode) {
+    private CommandArgsDecoder builder(byte commandCode) {
         switch (commandCode) {
-            case 0x01 : return new IncCommandBuilder(commandCode);
-            case 0x02: return new DecCommandBuilder(commandCode);
+            case 0x01 : return new IncCommandArgsDecoder(commandCode);
+            case 0x02: return new DecCommandArgsDecoder(commandCode);
         }
         throw new IllegalArgumentException("CommandBuilder does exist for the specified code");
     }

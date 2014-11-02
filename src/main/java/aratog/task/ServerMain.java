@@ -1,6 +1,9 @@
 package aratog.task;
 
 
+import aratog.task.decoder.CommandDecoder;
+import aratog.task.encoder.CommandEncoder;
+import aratog.task.entity.Counter;
 import aratog.task.spring.CounterService;
 import aratog.task.spring.SpringUtils;
 import org.apache.mina.core.service.IoAcceptor;
@@ -26,7 +29,7 @@ public class ServerMain {
         initDB();
 
         IoAcceptor acceptor = new NioSocketAcceptor();
-        Executor handlerExecutor = new ThreadPoolExecutor(0, MAX_HANDLER_THREADS, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+        Executor handlerExecutor = new ThreadPoolExecutor(0, MAX_HANDLER_THREADS, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
         acceptor.getFilterChain().addLast("logger", new LoggingFilter());
         acceptor.getFilterChain().addLast("decoder", new ProtocolCodecFilter(new CommandEncoder(), new CommandDecoder()));
         acceptor.getFilterChain().addLast("thread-pool", new ExecutorFilter(handlerExecutor));

@@ -1,8 +1,8 @@
-package aratog.task;
+package aratog.task.encoder;
 
-import aratog.task.request.CommandArgs;
-import aratog.task.request.DecCommandArgs;
-import aratog.task.request.IncCommandArgs;
+import aratog.task.command.args.CommandArgs;
+import aratog.task.command.args.DecCommandArgs;
+import aratog.task.command.args.IncCommandArgs;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoderAdapter;

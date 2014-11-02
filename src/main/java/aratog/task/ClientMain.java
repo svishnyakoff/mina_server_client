@@ -1,8 +1,10 @@
 package aratog.task;
 
 
-import aratog.task.request.DecCommandArgs;
-import aratog.task.request.IncCommandArgs;
+import aratog.task.command.args.DecCommandArgs;
+import aratog.task.command.args.IncCommandArgs;
+import aratog.task.decoder.CommandDecoder;
+import aratog.task.encoder.CommandEncoder;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.future.IoFuture;
 import org.apache.mina.core.future.IoFutureListener;
@@ -67,7 +69,7 @@ public class ClientMain {
                 }
 
             }
-            Thread.sleep(100);
+            Thread.sleep(10);
         }
     }
 

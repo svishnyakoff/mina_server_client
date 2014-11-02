@@ -1,6 +1,6 @@
 package aratog.task.command;
 
-import aratog.task.request.CommandArgs;
+import aratog.task.command.args.CommandArgs;
 
 
 public interface  Command {
