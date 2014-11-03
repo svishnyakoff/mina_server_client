@@ -13,13 +13,13 @@ abstract public class CommandArgsDecoder<T> {
 
     public boolean build(IoBuffer in) {
         if (in.remaining() >= requiredBytes()) {
-            process(in);
+            decode(in);
             return true;
         }
         return false;
     }
 
-    abstract protected void process(IoBuffer in);
+    abstract protected void decode(IoBuffer in);
 
 
     protected int requiredBytes() {

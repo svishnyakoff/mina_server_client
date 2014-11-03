@@ -25,6 +25,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class ClientMain {
     private static final Logger LOG = LoggerFactory.getLogger(ClientMain.class);
     private static CopyOnWriteArraySet<IoSession> sessionSet = new CopyOnWriteArraySet<IoSession>();
+    private volatile static boolean hasConnections = true;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -37,10 +38,13 @@ public class ClientMain {
             @Override
             public void sessionClosed(IoSession session) throws Exception {
                 sessionSet.remove(session);
+                if (sessionSet.isEmpty()) {
+                    hasConnections = false;
+                }
             }
         });
         connect(connector, inetSocketAddresses);
-        sendMessages();
+        sendMessages(connector);
 
     }
 
@@ -56,10 +60,10 @@ public class ClientMain {
         }
     }
 
-    private static void sendMessages() throws InterruptedException {
+    private static void sendMessages(SocketConnector connector) throws InterruptedException {
         Random random = new Random();
         final int maxCounterId = 100;
-        while (true) {
+        while (hasConnections) {
             for (IoSession session : sessionSet) {
                 boolean inc = random.nextBoolean();
                 if (inc) {
@@ -71,6 +75,10 @@ public class ClientMain {
             }
             Thread.sleep(10);
         }
+
+        LOG.info("There is no active server connections. Closing client");
+        connector.dispose();
+
     }
 
     private static InetSocketAddress[] parseServerAddresses(String[] args) {

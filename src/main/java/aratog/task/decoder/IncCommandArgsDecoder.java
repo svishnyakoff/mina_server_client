@@ -14,7 +14,7 @@ public class IncCommandArgsDecoder extends CommandArgsDecoder<IncCommandArgs> {
     }
 
     @Override
-    protected void process(IoBuffer in) {
+    protected void decode(IoBuffer in) {
         int counterId = in.getInt();
         commandRequest.setCounterId(counterId);
     }
