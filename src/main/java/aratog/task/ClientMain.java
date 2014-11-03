@@ -82,6 +82,11 @@ public class ClientMain {
     }
 
     private static InetSocketAddress[] parseServerAddresses(String[] args) {
+        if (args.length == 0) {
+            LOG.error("Please provide at least 1 server you would like to connect to");
+            throw new IllegalStateException();
+        }
+
         InetSocketAddress[] result = new InetSocketAddress[args.length];
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
